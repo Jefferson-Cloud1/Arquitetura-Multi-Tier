@@ -1,5 +1,5 @@
 # Arquitetura-Multi-Tier
-Esse projeto foi criado com o intuito de replicar um ambiente de infraestutura real de pequena e médias empresas, onde utilizei de serviços como: Route 53, ACM, API Gateway, ECS(Fargate), EC2, RDS(MYSQL). Essa infraestutura oferece a base de segurança e boas práticas que é utilizado na AWS.
+Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura real de pequenas e médias empresas, utilizando serviços como Route 53, ACM, API Gateway, ECS (Fargate), EC2 e RDS (MySQL). A arquitetura implementada segue boas práticas de segurança e de design recomendadas pela AWS, fornecendo uma base sólida, escalável e confiável para aplicações modernas.
 
 ## **Diagrama do Projeto**
 
