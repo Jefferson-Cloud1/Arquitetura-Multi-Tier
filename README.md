@@ -33,3 +33,20 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
  - Serviço para criar certificados de criptografia nativo da AWS
  - Cria, armazena e renova certificados públicos e privados para suas aplicações 
  - Gerenciamento de certificados de SSL/TLS solicitados na AWS
+---
+
+# **Criação do Projeto**
+
+1. *Criando Uma Zona de Hospedagem para o Domínio*
+ - Vá no Route 53 e Criei uma Zona de Hospedagem para seu domínio
+
+  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Captura%20de%20tela%202025-11-12%20063750.png)
+
+ - Insirá o seu domínio e escolha qual Zona de Hospedagem você irá utilizar
+
+  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Captura%20de%20tela%202025-11-12%20063836.png)
+
+  > **⚠️ Atenção:** Caso você queira ter acesso do seu site via internet, utilize uma zona pública pois será roteado para internet. Se não, utilize uma zona privada para só tenha acesso quem estiver em sua rede.
+
+  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Captura%20de%20tela%202025-11-12%20064137.png)
+
