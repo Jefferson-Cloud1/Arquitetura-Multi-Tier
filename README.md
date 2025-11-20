@@ -46,7 +46,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Captura%20de%20tela%202025-11-12%20063836.png)
 
-  > **⚠️ Atenção:** Caso você queira ter acesso do seu site via internet, utilize uma zona pública pois será roteado para internet. Se não, utilize uma zona privada para que o roteamento seja feito somente para sua rede privada.
+  > **⚠️ Atenção:** Caso você queira ter acesso do seu domínio via internet, utilize uma zona pública, pois assim será possível ser feito este acesso. Se não, utilize uma zona privada para que o roteamento seja feito somente para sua rede privada.
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Captura%20de%20tela%202025-11-12%20064137.png)
 
