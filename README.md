@@ -18,7 +18,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
  - Utilizado para criar microserviços de containers em cima de uma instância EC2 ou Fargate (Utilizado em cenários aonde o cliente não quer gerenciar o container)
  - Possui funções como: TASK Definition, Task, Service.
 
-3.  **RDS (Relational DataBase Service)**
+3.  **RDS (Relational Database Service)**
  - Serviço de DataBases gerenciado pela AWS
  - Possui variades de Bancos de Dados que podem ser criados
  - Facilita na criação de Bancos de Dados e automatiza backups, manutenção, implementação de path
