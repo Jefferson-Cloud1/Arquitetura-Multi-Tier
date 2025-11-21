@@ -67,7 +67,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
 2.2 *Detalhes do container* 
  - Utilizei httpd:latest como imagem docker
- - Uma imagem simples do Apache, mas que conseguirei visualizar se a task realmente está em execução ou não.
+ - Uma imagem simples do Apache, mas que permiti visualizar a execução do container
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Config_task_2.png)
 
