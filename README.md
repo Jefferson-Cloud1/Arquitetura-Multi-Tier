@@ -174,7 +174,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Testing_acess_url_browser.png)
 
-  > **⚠️ Atenção:** Na imagem conseguimos visualizar o website, o domínio acessado no browser e as infomações de que o site é seguro(Criptografado).
+  > **⚠️ Atenção:** Na imagem é possível visualizar o website, o domínio acessado no browser e as infomações de que o site é seguro(Criptografado). 
 
   
   
