@@ -182,12 +182,32 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_ec2%5D.png)
 
-  > **⚠️ Atenção:** Está máquina está em uma sub-rede privada pois ela estáexecutando o back-end do meu projeto. Com isso, não deve ser permitido que a internet tenha acesso. Garatindo maior segurança para seus serviços mais críticos.
----
+  > **⚠️ Atenção:** Está máquina está em uma sub-rede privada pois ela está executando o back-end do meu projeto. Com isso, não deve ser permitido que a internet tenha acesso. Garatindo maior segurança para seus serviços mais críticos.
+
+
   > **⚠️ Explicação sobre o Back-End:** Não foi possível realmente criar uma conexão bem estruturada do ECS com o EC2 porque: Ao utilizar uma image Docker simples como a que estou utilizando, não é possível fazer alterações nela, provisionando uma conexão via API entre eles. É uma imagem simples que só foi utilizada para fins de teste de execução! O que poderia ser feito neste cenário é: Criação de uma API Private, implementar com um Endpoint vpc, vpc link e NLB garantindo as boas práticas de segurança da AWS pois por se tratar de uma conexão crítica, não será possível implementar essa conexão em uma camada pública. Porém, a AWS limitou o provisonamento do ELB e não me permitiu criar! Não consegui de nenhuma forma alterar ou retirar essa limitação. Os recursos estão na mesma VPC, utilizando a Route Table padrão, todos coneseguem se conectar de forma privada e segura utilizando também o SG(Security Group).
 
+5.1 *Criando endpoints para acessar a instância via SSM*
+ - Utilizar o ssm facilita na conexão e o gerenciamento de acesso ao recurso
+ - Não precisa gerenciar Key Pair ou liberar acesso via SSH no security Group
+ - A comunicação é segura e podemos gerenciar as sessões ou iniciar as sessões através do próprio System Manager
+
+  ![Arquitetura-Multi-Tie](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/creating_endpoint_ssm.png)
+
+ - SSM: Endpoint que recebe os comandos que serão executados ao serem solicitados
+ - SSmessages: Cria um canal interativo entre seu Browser e o Agente SSM que está instalado na sua máquina
+ - EC2messages: Utilizado para envio de menssagens entre o EC2 e o SSM
+
+5.2 *Acessando a instância via SSM*
+ - Demora alguns minutos para ser liberado o acesso
+ - Recomendo esperar alguns minutos após implementação dos Endpoints para o acesso
+ - Reinicie a página e terá a permissão para acessar
+
+  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/connecting_ec2_ssm.png)
+
+5.2 *Terminal Linux*
   
-  
+   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/session_ec2_ssm.png)
 
 
 
