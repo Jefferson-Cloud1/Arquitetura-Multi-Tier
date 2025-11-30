@@ -51,7 +51,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Captura%20de%20tela%202025-11-12%20064137.png)
 ---
 
-2. *criação do cluster ECS*
+2. *Criação do cluster ECS*
  - O cluster é o agrupamento de tasks ou serviço na camada lógica
  - Possibilita a escolha da infraestrutura que será utilizada para os containers 
  - Neste projeto implementei o fargate pois não quero gerenciar minhas tasks
@@ -87,7 +87,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Config_service_2.png)
 
-2.5 *testando acesso ao website*
+2.5 *Testando acesso ao website*
  - Testando o site via endereço ip da Task
  - o SG configurado permite acesso HTTP e HTTPs
  - Neste cenário meu acesso estava sendo feito via porta 80 pois ainda não havia criado o certificado ACM
@@ -108,7 +108,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_method_api.png)
 
-3.2 *alterando método de resposta da API*
+3.2 *Alterando método de resposta da API*
  - Está alteração foi feita para que o usuário consiga visualizar o web site de maneira amigável
  - No momento em que seu usuário acessa o site, ele consegue visualizar seu website, caso não seja feita está alteração, ele irá receber informações em JSON
 
@@ -140,7 +140,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
  - Criado como público porque será acessado pela internet...
 
-3.7 *criando ACM para associar ao nome de domínio personalizado*
+3.7 *Criando ACM para associar ao nome de domínio personalizado*
  - Ele precisa ser criado para associar ao domínio
  - No momento em que os usuário acessarem o site, ele estará sendo trafegado via HTTPS
 
@@ -176,6 +176,39 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
   > **⚠️ Atenção:** Na imagem é possível visualizar o website, o domínio acessado no browser e as infomações de que o site é seguro(Criptografado).
 
+4.2 *Criando uma ACL WAF*
+ - O Waf é um serviço de proteção para a camada de aplicação (camada 7 do modelo OSI)
+ - Ele permite criar ACL que serão utilizadas para filtrar quem terá acesso aos recursos que estão exposto à internet
+ - ACL contra ataques SQLInject, bloqueio geográfico e endereços IP
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_waf_api.png)
+
+ - Escolhi o API pois o tráfego dos usuários passaram por ele
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_waf_api_2.png)
+
+ - Escolhi esse pacotes de regras pois eu irei fazer testes de acessos via geolocalização, onde eu bloquearia o acesso de qualquer usuário do brasil
+ - Porém a AWS oferece o pacote que melhor se adapta ao necessário de uma workload que utiliza API
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Acess_web-API.png)
+
+ - Acessando o web-site antes de aplicar a regra que bloqueia acessos com origem do Brasil
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Dashboard_waf.png)
+
+ - Neste Dashboard podemos ver 3 acessos que vinheram do Brasil (meus acessos)
+ - Este dashboard integra informações essenciais para que possamos vizualizar ataques ou acessos
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Edit_role_Waf.png)
+
+ - Agora neste dashboar eu alterei a regra de acesso via geolocalização
+ - Está regra bloqueia todo acesso com origem do brasil
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Acess_denied_waf.png) 
+
+ - Tentei acesso pelo domínio registrado no Route 53 e podemos ver que recebi Forbidden (acesso negado)
+
+---
 5. *Provisionando uma máquina EC2 (Back-End)*
  - Utilizar uma instância EC2 permite que eu tenha total controle e gerencie a instância
  - Configurando ele na mesma VPC que os outros recursos, garantindo comunicação entre eles!
@@ -208,6 +241,61 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 5.2 *Terminal Linux*
   
    ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/session_ec2_ssm.png)
+
+5.3 *Criando NAT gateway 
+ - NAT é um serviço que permite que recursos que estão na camada privada possam ter acesso a internet
+ - O recurso tem acesso a internet, mas não permite que o tráfego da internet chegue ao recurso
+ - Ele está associado em uma sub-rede pública dedicada somente ao NAT Gateway
+ - Utilizado para download de path para os recursos e fazer download de alkgum pacote necessário
+
+  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_Nat.png)
+
+5.4 *Configurando a tabela de roteamento para o NAT Gateway*
+ - Para que o recurso que está na camada privada tenha acesso a internet é necessário criar uma tabela de rota
+ - Essa tabela de rota irá redirecionar o recurso para chegar ao NAT Gateway e direcionar para o IGW
+
+  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Route_table_nat.png)
+
+  > **⚠️ Atenção:** Essa configuração teve que ser feita para que fosse baixado o repositório de linha de comando do banco de dados MySql, pois está instância EC2 irá se conectar ao DB e será utiliziado para fazer manipulação de tabela de dados.
+
+5.5 *Baixando Linha de comando do MySql*
+ - É necessário que seja baixado a linha de comando do MySQL na EC2
+ - Para que a instância consiga executar os comandos no momento de manipular a tabela de dados
+
+  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Download_comandLine_db.png)
+
+  > **⚠️ Atenção:** Inseri o comando: Sudo dnf install mariadb105 -y. Este comando permite que eu baixe e instale de maneira automatica com permissões de root.
+
+6.0 *Criando um Banco de Dados no RDS* 
+ - O RDS é um serviço que disponibiliza diversos bancos de dados
+ - Facilita o provisionamento, automatiza tarefas: Horário para manutenção, backup, Path
+ - Possibilita a criação e alta-disponibilitade do DB, podendo replicar em AZ´s ou utilizar duas AZ´s onde 1 delas será executada, enquanto a outra estará em Standby
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_db.png)
+
+ - Escolhi o MySql DB
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_db_2.png)
+
+ - Escolhi o modelo do banco de dados como sandbox para que não me gere gastos exorbitantes
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_db_3.png)
+
+ - Inserir o nome do banco de dados e a senha que será utilizado para acessar
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_db_4.png)
+
+ - Escolhi o tipo de instância básico e a quantidade de armazenamento mínima para que não ultrapasse meu orçamento
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_db_5.png)
+
+ - Escolhi a mesma VPC em que meus recursos estavam alocados! e não permiti acesso ao público porque só quem terá acesso será minha instância que está em uma sub-rede privada!
+
+6.1 *Acessando o DB via EC2*
+ - Necessário inserir alguns comando no terminal para que seja permitido acesso ao db
+ - mysql -h endpoint -P 3306 -u admin -p -> esse comando pede para inserir o endpoint do db e o nome do db. Após inserir todas essas informações, insirá a senha que foi criada anteriormente
+
+ ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Comand_db_ssm_ec2.png)
 
 
 
