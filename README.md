@@ -83,7 +83,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
  - Nesta sessão temos questões importante sobre a quantidade de replicação da Task
  - O meu projeto preferi criar 1 replica para que eu consiga testar meu web server
  - Caso seu projeto seja maior, eu indico que você crie mais replicas para que o tráfego seja distribuido de forma equilibrada entre eles, garantindo alta disponibilidade em seu projeto.
- - È essencial que o tráfego recebido não sobrecarrege somente um container para que seu container a saúde continue integra.
+ - É essencial que o tráfego recebido não sobrecarrege somente um container para que seu container a saúde continue integra.
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Config_service_2.png)
 
@@ -97,7 +97,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 3. *Criação do API Rest*
  - Utilizar o API para direcionar o tráfego ao Webserver
  - Possibilita integração ao WAF, diferente do API HTTP que não é possível
- - Além de que o API Rest disponibiliza diversas funcionalidades para sua API:Cache, integração com WAf...
+ - Além de que o API Rest disponibiliza diversas funcionalidades para sua API:Cache, integração com Waf...
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_api_rest.png)
 
@@ -178,7 +178,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
 4.2 *Criando uma ACL WAF*
  - O Waf é um serviço de proteção para a camada de aplicação (camada 7 do modelo OSI)
- - Ele permite criar ACL que serão utilizadas para filtrar quem terá acesso aos recursos que estão exposto à internet
+ - Ele permite criar pacote de regras que serão utilizadas para filtrar quem terá acesso aos recursos que estão exposto à internet
  - ACL contra ataques SQLInject, bloqueio geográfico e endereços IP
 
  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_waf_api.png)
@@ -246,12 +246,12 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
  - NAT é um serviço que permite que recursos que estão na camada privada possam ter acesso a internet
  - O recurso tem acesso a internet, mas não permite que o tráfego da internet chegue ao recurso
  - Ele está associado em uma sub-rede pública dedicada somente ao NAT Gateway
- - Utilizado para download de path para os recursos e fazer download de alkgum pacote necessário
+ - Utilizado para download de patch para os recursos e fazer download de pacotes necessários
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_Nat.png)
 
 5.4 *Configurando a tabela de roteamento para o NAT Gateway*
- - Para que o recurso que está na camada privada tenha acesso a internet é necessário criar uma tabela de rota
+ - Para que o recurso que esteja na camada privada tenha acesso a internet é necessário criar uma tabela de rota
  - Essa tabela de rota irá redirecionar o recurso para chegar ao NAT Gateway e direcionar para o IGW
 
   ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Route_table_nat.png)
@@ -268,7 +268,7 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
 6.0 *Criando um Banco de Dados no RDS* 
  - O RDS é um serviço que disponibiliza diversos bancos de dados
- - Facilita o provisionamento, automatiza tarefas: Horário para manutenção, backup, Path
+ - Facilita o provisionamento, automatiza tarefas: Horário para manutenção, backup, Patch
  - Possibilita a criação e alta-disponibilitade do DB, podendo replicar em AZ´s ou utilizar duas AZ´s onde 1 delas será executada, enquanto a outra estará em Standby
 
  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Creating_db.png)
@@ -297,6 +297,14 @@ Este projeto foi criado com o objetivo de replicar um ambiente de infraestrutura
 
  ![Arquitetura-Multi-Tier](https://github.com/Jefferson-Cloud1/Arquitetura-Multi-Tier/blob/main/Comand_db_ssm_ec2.png)
 
+## **Benefícios deste projeto**
+
+ - Alta disponibilidade e escalabilidade usando ECS Fargate, EC2 e API Gateway.
+ - Segurança reforçada, com WAF, sub-redes privadas, IAM, ACM e SSM.
+ - Arquitetura real de mercado, seguindo o padrão multi-tier (front-end, back-end e banco).
+ - Melhor desempenho e confiabilidade, com Route 53, NAT Gateway e VPC bem segmentada.
+ - Gerenciamento simplificado, com SSM e integração automatizada entre serviços.
+ - Ambiente profissional ideal para portfólio e entrevistas técnicas.
 
 
  
